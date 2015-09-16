@@ -1,0 +1,23 @@
+{
+  "name": "react-redux-example",
+  "scripts": {
+    "start": "node webpack.server.js",
+    "build": "npm run build"
+  },
+  "devDependencies": {
+    "babel": "^5.4.7",
+    "babel-core": "^5.4.7",
+    "babel-loader": "^5.0.0",
+    "babel-plugin-object-assign": "^1.2.0",
+    "babel-plugin-react-transform": "^1.0.1",
+    "bundle-loader": "^0.5.2",
+    "express": "^4.13.3", 
+    "react": "0.14.0-rc1",
+    "react-dom": "0.14.0-rc1",
+    "react-hot-loader": "^1.2.8",
+    "react-redux" : "2.1.2",  
+    "redux-devtools": "^1.0.2",
+    "webpack": "^1.9.11",
+    "webpack-dev-server": "1.10.1"
+  }
+}

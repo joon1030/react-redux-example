@@ -35,20 +35,20 @@ function receivePosts( reddit, json ) {
     };
 }
 
-function fetchPosts( reddit ) {
+function fetchPosts(reddit) {
     return dispatch => {
         dispatch(requestPosts(reddit));
-        return fetch('http://www.reddit.com/r/${reddit}.json')
+        return fetch(`http://www.reddit.com/r/${reddit}.json`)
             .then(req => req.json())
             .then(json => dispatch(receivePosts(reddit, json)));
     }
 }
 
-function shouldFetchPosts( state, reddit ) {
-    const posts = state.postByReddit[reddit];
-    if(!posts) {
+function shouldFetchPosts(state, reddit) {
+    const posts = state.postsByReddit[reddit];
+    if (!posts) {
         return true;
-    } else if ( posts.isFetching ) {
+    } else if (posts.isFetching) {
         return false;
     } else {
         return posts.didInvalidate;
@@ -56,10 +56,10 @@ function shouldFetchPosts( state, reddit ) {
 }
 
 
-export function fetchPostsIfNeeded( reddit ){
+export function fetchPostsIfNeeded(reddit) {
     return (dispatch, getState) => {
-        if (shouldFetchPosts(getState(), reddit)){
-            return dispatch(fetchPosts(reddit))
+        if (shouldFetchPosts(getState(), reddit)) {
+            return dispatch(fetchPosts(reddit));
         }
-    }
+    };
 }

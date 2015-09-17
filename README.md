@@ -1,5 +1,3 @@
-## react-redux-todo-example
-
 # examples
 ## http://rackt.github.io/redux/docs
 - todo

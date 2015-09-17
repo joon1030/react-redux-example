@@ -1,6 +1,9 @@
 ## react-redux-todo-example
-- 아래의 예제를 사용했습니다.
-- http://rackt.github.io/redux/docs/basics/ExampleTodoList.html
+
+# examples
+## http://rackt.github.io/redux/docs
+- todo
+- async
 
 ## package 정보
 - react 0.14.0-rc1

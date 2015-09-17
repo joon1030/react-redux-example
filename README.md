@@ -1,5 +1,5 @@
 # examples
-## http://rackt.github.io/redux/docs
+## http://rackt.github.io/redux/
 - todo
 - async
 

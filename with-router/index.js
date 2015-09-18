@@ -31,6 +31,11 @@ class App extends Component {
             <div>
                 <h1>App Container</h1>
                 {links}
+                action : {this.props.location.action}
+                <br/>
+                pathname : {this.props.location.pathname}
+                <br/>
+                search : {this.props.location.search}
                 {this.props.children}
             </div>
         );

@@ -1,95 +1,42 @@
 // react
 import React, { Component, PropTypes } from 'react';
 import ReactDOM from 'react-dom';
-import { Route, Link } from 'react-router';
 import { createHistory } from 'history';
 
 // redux
-import { createStore, compose, combineReducers } from 'redux';
-import { Provider, connect, applyMiddleware } from 'react-redux';
-import { reduxReactRouter, routerStateReducer, ReduxRouter } from 'redux-react-router';
+import { createStore, combineReducers, compose, applyMiddleware } from 'redux'
+import { Provider, connect } from 'react-redux';
+import thunk from 'redux-thunk';
 
-@connect(state => ({ routerState : state.router }))
-class App extends Component {
 
-    static propTypes = {
-        children : PropTypes.node
+const createStoreWithMiddleware = compose(
+    applyMiddleware(thunk)
+)(createStore);
+
+import rootReducer from './reducers';
+import TestRouter from './containers/routes.js'
+
+function configureStore(initialState) {
+    const store = createStoreWithMiddleware(rootReducer, initialState);
+
+    // Enable Webpack hot module replacement for reducers
+    if (module.hot) {
+        module.hot.accept('./reducers', () => {
+            const nextRootReducer = require('./reducers');
+            store.replaceReducer(nextRootReducer);
+        });
     }
 
-    render() {
-        const links = [
-            '/',
-            '/parent?foo=bar',
-            '/parent/child/?bar=abc',
-            '/parent/child/123?baz=foo'
-        ].map((l, idx)=>
-            <p key={idx}>
-                <Link to={l}>{l}</Link>
-            </p>
-        );
-        return (
-            <div>
-                <h1>App Container</h1>
-                {links}
-                action : {this.props.location.action}
-                <br/>
-                pathname : {this.props.location.pathname}
-                <br/>
-                search : {this.props.location.search}
-                {this.props.children}
-            </div>
-        );
-    }
+    return store;
 }
-
-class Parent extends Component {
-    static propTypes = {
-        children : PropTypes.node
-    }
-
-    render() {
-        return (
-            <div>
-                <h2>Parent</h2>
-                {this.props.children}
-            </div>
-        );
-    }
-}
-
-class Child extends Component {
-    render() {
-        return (
-            <div>
-                <h2>Child</h2>
-            </div>
-        );
-    }
-}
-
-const reducer = combineReducers({
-    router : routerStateReducer
-});
-
-const store = compose(
-    reduxReactRouter({ createHistory })
-)(createStore)(reducer);
 
 class Root extends Component {
+
     render() {
         return (
-            <div>
-                <Provider store={store}>
-                    <ReduxRouter>
-                        <Route path="/" component={App}>
-                            <Route path="parent" component={Parent}>
-                                <Route path="child" component={Child}/>
-                                <Route path="child/:id" component={Child}/>
-                            </Route>
-                        </Route>
-                    </ReduxRouter>
-                </Provider>
-            </div>
+            <Provider store={configureStore()}>
+                <TestRouter />
+            </Provider>
         );
     }
 }

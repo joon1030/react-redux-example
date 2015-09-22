@@ -32,7 +32,6 @@ export default class NewsList extends Component {
     };
 
     render () {
-
         const { list, params } = this.props;
 
         return (

@@ -4,7 +4,29 @@
     <title>Redux React Router Async Example</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type="text/css">
 
+        .example-enter {
+            opacity: 0.01;
+            transition: opacity 3.5s ease-in;
+            background-color: red;
+        }
+
+        .example-enter.example-enter-active {
+            opacity: 1;
+        }
+
+        .example-leave {
+            opacity: 1;
+            transition: opacity 3.5s ease-in;
+            background-color: green;
+        }
+
+        .example-leave.example-leave-active {
+            opacity: 0;
+        }
+
+    </style>
 
     <link rel="shortcut icon" href="/assets/favicon.ico">
 </head>
